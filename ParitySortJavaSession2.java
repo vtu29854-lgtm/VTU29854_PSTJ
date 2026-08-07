@@ -1,4 +1,4 @@
-mport java.util.*;
+Import java.util.*;
 
 public class ParitySortJavaSession2 {
     public static void main(String[] args) {

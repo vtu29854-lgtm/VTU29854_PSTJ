@@ -1,4 +1,4 @@
-mport java.util.*;
+Import java.util.*;
 
 class Player {
     String name;

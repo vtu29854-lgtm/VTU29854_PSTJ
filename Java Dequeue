@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        int[] arr = new int[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
+        HashMap<Integer, Integer> freq = new HashMap<>();
+
+        // Build the first window
+        for (int i = 0; i < m; i++) {
+            freq.put(arr[i], freq.getOrDefault(arr[i], 0) + 1);
+        }
+
+        int maxUnique = freq.size();
+
+        // Slide the window across the rest of the array
+        for (int i = m; i < n; i++) {
+            // Remove the element leaving the window
+            int outVal = arr[i - m];
+            int outCount = freq.get(outVal);
+            if (outCount == 1) {
+                freq.remove(outVal);
+            } else {
+                freq.put(outVal, outCount - 1);
+            }
+
+            // Add the new element entering the window
+            int inVal = arr[i];
+            freq.put(inVal, freq.getOrDefault(inVal, 0) + 1);
+
+            // Track the maximum distinct count seen
+            if (freq.size() > maxUnique) {
+                maxUnique = freq.size();
+            }
+        }
+
+        System.out.println(maxUnique);
+    }
+}
